@@ -7,7 +7,7 @@
 :root {
     --gold: #D4AF37;
     --dark: #000000;
-    --light: #FFFFFF;
+    --light: #ffffffbe;
     --gray: #8C8C8C;
     --dark-gray: #0e0c0c;
     --transition: all 0.3s ease;
@@ -55,6 +55,36 @@ header.scrolled {
     color: var(--gold);
     text-decoration: none;
     letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.logo-icon {
+    font-size: 1.2rem;
+    color: var(--gold);
+    transition: var(--transition);
+}
+
+.logo:hover .logo-icon {
+    transform: rotate(15deg) scale(1.1);
+}
+
+.logo-maia {
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.logo-aliancas {
+    font-weight: 400;
+    color: var(--light);
+    opacity: 0.9;
+}
+
+.logo:hover .logo-aliancas {
+    color: var(--gold);
+    opacity: 1;
 }
 
 nav {
@@ -115,34 +145,51 @@ nav a:hover::after {
     width: 100%;
 }
 
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, 
+        transparent 0%, 
+        rgba(0, 0, 0, 0.3) 50%, 
+        rgba(0, 0, 0, 0.7) 100%);
+    z-index: 1;
+}
+
 .hero-content {
     max-width: 1200px;
     text-align: center;
     position: relative;
     z-index: 2;
-    padding-top: 250px; /* ADICIONADO para descer todo o conteúdo */
+    padding-top: 250px;
+    animation: fadeInUp 1s ease-out;
 }
 
 .hero h1 {
     font-family: 'Playfair Display', serif;
     font-size: 4rem;
-    color: var(--light);
-    margin-bottom: 2rem; /* AUMENTADO de 1.5rem */
+    color: var(--gold);
+    margin-bottom: 2rem;
     font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    margin-top: 100px; /* ADICIONADO para descer o título */
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    margin-top: 100px;
+    animation: fadeInUp 1s ease-out 0.3s both;
 }
 
 .hero p {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: var(--light);
     max-width: 600px;
-    margin: 0 auto 3rem; /* AUMENTADO de 2rem para 3rem */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin: -2rem auto 5rem; 
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    animation: fadeInUp 1s ease-out 0.6s both;
 }
 
 .cta-button {
-    margin-top: 50px; /* REDUZIDO de 400px para 50px - mais controlável */
+    margin-top: 50px;
     display: inline-block;
     padding: 1rem 2.5rem;
     background: var(--gold);
@@ -152,12 +199,31 @@ nav a:hover::after {
     font-weight: 600;
     transition: var(--transition);
     border: 2px solid var(--gold);
+    animation: fadeInUp 1s ease-out 0.9s both;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: var(--transition);
+}
+
+.cta-button:hover::before {
+    left: 100%;
 }
 
 .cta-button:hover {
     background: transparent;
     color: var(--gold);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
 }
 
 /* Sections - Largura Total */
@@ -165,6 +231,14 @@ section {
     padding: 6rem 2rem;
     width: 100%;
     position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section-with-bg {
@@ -182,6 +256,9 @@ section {
     margin-bottom: 3rem;
     color: var(--light);
     position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
 .section-title::after {
@@ -193,6 +270,7 @@ section {
     width: 80px;
     height: 3px;
     background: var(--gold);
+    animation: expandWidth 0.8s ease-out 0.5s both;
 }
 
 /* About */
@@ -210,6 +288,14 @@ section {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(212, 175, 55, 0.2);
     transition: var(--transition);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.about-item.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .about-item:hover {
@@ -234,6 +320,7 @@ section {
 .about-item p {
     color: var(--gray);
     font-size: 1rem;
+    line-height: 1.7;
 }
 
 /* Galeria de Alianças */
@@ -293,29 +380,31 @@ section {
 .gallery-btn:hover {
     background: var(--gold);
     color: var(--dark);
+    transform: scale(1.1);
 }
 
-.gallery-dots {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
+/* Acessibilidade da Galeria */
+.gallery-btn:focus,
+.dot:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
 }
 
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    transition: var(--transition);
+.gallery-container {
+    touch-action: pan-y;
 }
 
-.dot.active {
-    background: var(--gold);
-    transform: scale(1.2);
+@media (max-width: 768px) {
+    .gallery-btn {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
 }
-
 /* Contact */
 .contact-content {
     display: grid;
@@ -331,6 +420,14 @@ section {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(212, 175, 55, 0.2);
     transition: var(--transition);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.contact-item.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .contact-item:hover {
@@ -354,6 +451,7 @@ section {
 .contact-item p {
     color: var(--gray);
     margin-bottom: 1.5rem;
+    line-height: 1.7;
 }
 
 .contact-link {
@@ -370,6 +468,7 @@ section {
 .contact-link:hover {
     background: var(--gold);
     color: var(--dark);
+    transform: translateY(-2px);
 }
 
 /* Footer Melhorado */
@@ -418,13 +517,14 @@ footer {
 }
 
 .dev-link {
-    color: #aaa;
+    color: var(--gray);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1.0rem;
+    transition: var(--transition);
 }
 
 .dev-link:hover {
-    color: var(--gold);
+    color: var(--gray);
 }        
 
 .social-links {
@@ -478,10 +578,45 @@ footer {
     z-index: 1000;
     transition: var(--transition);
     text-decoration: none;
+    animation: pulse 2s infinite;
 }
 
 .whatsapp-float:hover {
     transform: scale(1.1);
+    animation: none;
+}
+
+/* Animações */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes expandWidth {
+    from {
+        width: 0;
+    }
+    to {
+        width: 80px;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
 }
 
 /* Responsive - AJUSTES PARA MOBILE */
@@ -507,24 +642,33 @@ footer {
         display: flex;
     }
 
+    .logo {
+        font-size: 1.2rem;
+        gap: 6px;
+    }
+    
+    .logo-icon {
+        font-size: 1rem;
+    }
+
     /* AJUSTES ESPECÍFICOS PARA MOBILE - HERO SECTION */
     .hero-content {
-        padding-top: 180px; /* AUMENTADO de 100px para 180px */
+        padding-top: 180px;
     }
 
     .hero h1 {
         font-size: 2.5rem;
-        margin-top: 80px; /* AUMENTADO de 50px para 80px */
+        margin-top: 80px;
         margin-bottom: 2rem;
     }
 
     .hero p {
-        margin-bottom: 3rem; /* AUMENTADO de 2.5rem para 3rem */
+        margin-bottom: 3rem;
         font-size: 1.1rem;
     }
 
     .cta-button {
-        margin-top: 40px; /* AUMENTADO de 30px para 40px */
+        margin-top: 40px;
         padding: 0.9rem 2rem;
         font-size: 1rem;
     }
@@ -549,21 +693,21 @@ footer {
 @media (max-width: 480px) {
     /* AJUSTES ESPECÍFICOS PARA MOBILE PEQUENO */
     .hero-content {
-        padding-top: 150px; /* AUMENTADO para mobile pequeno */
+        padding-top: 150px;
     }
 
     .hero h1 {
         font-size: 2rem;
-        margin-top: 60px; /* AUMENTADO de 30px para 60px */
+        margin-top: 60px;
     }
     
     .hero p {
         font-size: 1rem;
-        margin-bottom: 2.5rem; /* AUMENTADO de 2rem para 2.5rem */
+        margin-bottom: 2.5rem;
     }
 
     .cta-button {
-        margin-top: 35px; /* AUMENTADO de 20px para 35px */
+        margin-top: 35px;
         padding: 0.8rem 1.8rem;
     }
 
@@ -573,5 +717,14 @@ footer {
 
     section {
         padding: 4rem 1rem;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+        gap: 4px;
+    }
+    
+    .logo-icon {
+        font-size: 0.9rem;
     }
 }
