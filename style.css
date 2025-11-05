@@ -1,5 +1,4 @@
-
-       * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -121,7 +120,7 @@ nav a:hover::after {
     text-align: center;
     position: relative;
     z-index: 2;
-    padding-top: 150px; /* ADICIONADO para descer todo o conteúdo */
+    padding-top: 250px; /* ADICIONADO para descer todo o conteúdo */
 }
 
 .hero h1 {
@@ -422,12 +421,10 @@ footer {
     color: #aaa;
     text-decoration: none;
     font-size: 0.9rem;
-
 }
 
 .dev-link:hover {
-    color: var(--accent);
-    
+    color: var(--gold);
 }        
 
 .social-links {
@@ -487,7 +484,7 @@ footer {
     transform: scale(1.1);
 }
 
-/* Responsive */
+/* Responsive - AJUSTES PARA MOBILE */
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
@@ -510,21 +507,26 @@ footer {
         display: flex;
     }
 
+    /* AJUSTES ESPECÍFICOS PARA MOBILE - HERO SECTION */
     .hero-content {
-        padding-top: 100px; /* Ajuste para mobile */
+        padding-top: 180px; /* AUMENTADO de 100px para 180px */
     }
 
     .hero h1 {
         font-size: 2.5rem;
-        margin-top: 50px; /* Ajuste para mobile */
+        margin-top: 80px; /* AUMENTADO de 50px para 80px */
+        margin-bottom: 2rem;
     }
 
     .hero p {
-        margin-bottom: 2.5rem; /* Ajuste para mobile */
+        margin-bottom: 3rem; /* AUMENTADO de 2.5rem para 3rem */
+        font-size: 1.1rem;
     }
 
     .cta-button {
-        margin-top: 30px; /* Ajuste para mobile */
+        margin-top: 40px; /* AUMENTADO de 30px para 40px */
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
     }
 
     .section-title {
@@ -545,18 +547,24 @@ footer {
 }
 
 @media (max-width: 480px) {
+    /* AJUSTES ESPECÍFICOS PARA MOBILE PEQUENO */
+    .hero-content {
+        padding-top: 150px; /* AUMENTADO para mobile pequeno */
+    }
+
     .hero h1 {
         font-size: 2rem;
-        margin-top: 30px; /* Ajuste para mobile pequeno */
+        margin-top: 60px; /* AUMENTADO de 30px para 60px */
     }
     
     .hero p {
         font-size: 1rem;
-        margin-bottom: 2rem; /* Ajuste para mobile pequeno */
+        margin-bottom: 2.5rem; /* AUMENTADO de 2rem para 2.5rem */
     }
 
     .cta-button {
-        margin-top: 20px; /* Ajuste para mobile pequeno */
+        margin-top: 35px; /* AUMENTADO de 20px para 35px */
+        padding: 0.8rem 1.8rem;
     }
 
     .gallery-container {
